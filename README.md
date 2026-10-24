@@ -80,6 +80,7 @@ This project deploys an E-Commerce Microservices Application on AWS using Terraf
 9. Select **Generate new token (classic)**.
 
 ## Step 2: Configure the Token
+<img width="1502" height="590" alt="Screenshot 2026-10-24 074707" src="https://github.com/user-attachments/assets/bd7bef4f-ad68-4639-a52f-c0576dc26f72" />
 
 1. Enter a note:`Kubernetes-Ecommerce-CICD`
 2. Select an appropriate expiration date.
@@ -177,6 +178,7 @@ Do not store actual credentials in the README, YAML files, or Git commit history
 # 🪣 PHASE 3: CONFIGURE TERRAFORM S3 BACKEND
 
 ## Step 5: Open the Infrastructure Workflow
+<img width="1470" height="656" alt="Screenshot 2026-10-24 084916" src="https://github.com/user-attachments/assets/e811c1b2-6293-4f13-a1eb-06d8908908c9" />
 
 Navigate to:
 
@@ -567,6 +569,7 @@ Remember that a public AWS load balancer can incur charges.
 ---
 
 # 🔄 PHASE 10: INSTALL ARGO CD
+<img width="1467" height="67" alt="Screenshot 2026-10-24 103546" src="https://github.com/user-attachments/assets/f9e58178-04be-455d-92dc-813822298d87" />
 
 ## Step 21: Create the Argo CD Namespace
 
@@ -616,6 +619,7 @@ kubectl patch svc argocd-server \
 ```
 
 ## Step 25: Retrieve the Argo CD Service Endpoint
+<img width="881" height="567" alt="Screenshot 2026-10-24 104350" src="https://github.com/user-attachments/assets/6f2780ff-f88a-4160-a546-59ca1f7be4b1" />
 
 Run:
 
@@ -642,13 +646,14 @@ echo
 
 Save the generated password in a password manager.
 
-Use the username:
-
-text
 
 ```
-admin
-```
+give username & password -
+ ```  
+       Username: admin
+       password : hQ4RyL5mJnAtAyrN
+<img width="1525" height="753" alt="Screenshot 2026-10-24 104623" src="https://github.com/user-attachments/assets/28c2cd2a-afa4-4427-b657-b4937d303c92" />
+
 
 Do not reuse the password from the original notes.
 
@@ -772,6 +777,7 @@ kubectl logs YOUR_POD_NAME -n microservices
 Check image availability, database connectivity, configuration, resource limits, and health probes.
 
 ---
+<img width="893" height="605" alt="Screenshot 2026-10-24 110808" src="https://github.com/user-attachments/assets/e18edf67-fde3-4940-8c26-232f351fdfad" />
 
 # 🎨 PHASE 13: DEPLOY THE FRONTEND
 
@@ -832,6 +838,7 @@ kubectl get ingress -A
 Confirm that the frontend can communicate with the backend and that the required image versions are deployed.
 
 ---
+<img width="1505" height="606" alt="Screenshot 2026-10-24 111059" src="https://github.com/user-attachments/assets/0f150842-c332-440e-8fd5-196784a4348e" />
 
 # 🌍 PHASE 14: ACCESS THE E-COMMERCE APPLICATION
 
@@ -877,6 +884,7 @@ kubectl get svc -n ingress-nginx
 If the application is unavailable, verify the Ingress host, service names, service ports, pod status, DNS, and security rules.
 
 ---
+<img width="1517" height="658" alt="Screenshot 2026-10-24 112151" src="https://github.com/user-attachments/assets/96c6645b-bdac-41ae-bee9-1554c68ba985" />
 
 # 📊 PHASE 15: INSTALL PROMETHEUS AND GRAFANA
 
@@ -1042,6 +1050,9 @@ echo
 ```
 
 If the secret has another name, replace `stable-grafana` with the actual name.
+  Email or username : admin
+  password : IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
+<img width="807" height="52" alt="Screenshot 2026-10-24 114106" src="https://github.com/user-attachments/assets/79924a5a-cefb-45ee-9871-91b04787b37c" />
 
 ## Step 50: Open Grafana
 
@@ -1054,8 +1065,10 @@ If the secret has another name, replace `stable-grafana` with the actual name.
 7. Open the available Kubernetes dashboards.
 
 ---
+<img width="1517" height="696" alt="Screenshot 2026-10-24 114700" src="https://github.com/user-attachments/assets/c6d996e1-d097-47c3-a3da-61a6b7966c16" />
 
 # 🩺 PHASE 16: FINAL VERIFICATION
+<img width="1520" height="641" alt="Screenshot 2026-10-24 114844" src="https://github.com/user-attachments/assets/88d19622-8db6-4842-9a2a-8c5023b5761d" />
 
 ## Step 51: Verify the Kubernetes Cluster
 
