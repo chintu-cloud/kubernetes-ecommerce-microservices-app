@@ -41,6 +41,7 @@ GitHub Profile Settings
 ### Note
 Provide any token name.
 (give any name)
+<img width="1502" height="590" alt="Screenshot 2026-10-24 074707" src="https://github.com/user-attachments/assets/a48fb01d-217b-421a-959c-7e0e143439e4" />
 
 ### Select Scopes (Give Permissions)
 
@@ -186,6 +187,7 @@ Run Workflow
 ```
 
 Terraform will provision all AWS resources automatically.
+<img width="1470" height="656" alt="Screenshot 2026-10-24 084916" src="https://github.com/user-attachments/assets/fcbb85c3-99a3-468e-ba5b-3f0eaf009339" />
 
 ---
 
@@ -333,6 +335,7 @@ hQ4RyL5mJnAtAyrN
 ```
 
 Save the password securely.
+<img width="1467" height="67" alt="Screenshot 2026-10-24 103546" src="https://github.com/user-attachments/assets/5b23cda8-e22e-49a5-ac96-d288738b3ad3" />
 
 ---
 
@@ -346,6 +349,7 @@ kubectl get svc -n argocd
 After run this command many options seen
 Then,
 Copy LoadBalancer URL and open in browser.
+<img width="881" height="567" alt="Screenshot 2026-10-24 104350" src="https://github.com/user-attachments/assets/a0913ffd-cd0a-4b37-90d5-eb64df16f085" />
 
 ### Login Credentials
 we can ArgoCD Dashboard give username & password -
@@ -357,6 +361,7 @@ Password : hQ4RyL5mJnAtAyrN
 ```
 
 ---
+<img width="1525" height="753" alt="Screenshot 2026-10-24 104623" src="https://github.com/user-attachments/assets/948f65a2-86df-4842-a847-577a23503960" />
 
 # 🚀 Step 15: Run CI/CD Pipeline
 
@@ -397,6 +402,7 @@ kubectl apply -f backend.yaml
 Backend application will be created automatically.
 
 ---
+<img width="893" height="605" alt="Screenshot 2026-10-24 110808" src="https://github.com/user-attachments/assets/73af6633-fd18-4d45-a161-51776be3719c" />
 
 # ⚙️ Step 17: Deploy Frontend Application
 
@@ -415,6 +421,7 @@ kubectl apply -f frontend.yaml
 Frontend application will be created automatically.
 
 ---
+<img width="1505" height="606" alt="Screenshot 2026-10-24 111059" src="https://github.com/user-attachments/assets/6c7a39e3-8e62-4e48-aba7-351fdf7adb06" />
 
 # 🌐 Step 18: Access Application
 
@@ -441,6 +448,7 @@ Ingress LoadBalancer URL
 to access the application.
 
 ---
+<img width="1517" height="658" alt="Screenshot 2026-10-24 112151" src="https://github.com/user-attachments/assets/13c912da-fae7-4d4b-8341-6a9b22b7120b" />
 
 # 📊 Step 19: Install Prometheus & Grafana
 
@@ -515,6 +523,7 @@ IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
 ```
 
 ---
+<img width="807" height="52" alt="Screenshot 2026-10-24 114106" src="https://github.com/user-attachments/assets/6e7342d8-44aa-4f44-bf2f-83aba437cb4b" />
 
 # 🌍 Step 23: Access Grafana Dashboard
 
@@ -534,6 +543,8 @@ Password : IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
 ```
 
 ---
+<img width="1517" height="696" alt="Screenshot 2026-10-24 114700" src="https://github.com/user-attachments/assets/49ee0b4b-8532-4a96-a707-ab93311781a3" />
+<img width="1520" height="641" alt="Screenshot 2026-10-24 114844" src="https://github.com/user-attachments/assets/f2719706-ea5c-40b6-bb72-ecac54e1622e" />
 
 # ✅ Deployment Complete
 
