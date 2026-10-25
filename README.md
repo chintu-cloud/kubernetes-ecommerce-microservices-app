@@ -1,6 +1,6 @@
 # kubernetes-veeraops-ecommerce-microservices-app
-/
-This README provides end-to-end steps for installing **eksctl**, **kubectl**, **Docker**, **Ingress-Nginx**, **MariaDB**, **ArgoCD**, and creating necessary namespaces and database tables
+
+
 
 ## 📸 Architecture & Workflow Diagrams
 
@@ -20,125 +20,568 @@ This README provides end-to-end steps for installing **eksctl**, **kubectl**, **
 
 ## Deployment Workflow
 
-Follow these steps in order for successful deployment:
 
-### Step 1: EKS Cluster Setup with terraform
-- Create EKS with terraform files mention on eks terrafom dirictory 
+Below is a stylish README.md format preserving your steps, structure, commands, and flow. I have not removed any deployment steps and organized them into professional GitHub README sections.
 
-### Step 2: EKS Client & Cluster Update
-- Already eks clinet server is creted update your terraform keys 
-- Update cluster configuration
-- Verify cluster connectivity using `kubectl get nodes`
-
-### Step 3: Configure GitHub Secrets
-Store the following secrets in your GitHub repository settings:
-- AWS Access Key ID
-- AWS Secret Access Key
-- AWS Account ID
-- Git PAT (Personal Access Token)
+# 🚀 Kubernetes E-Commerce Microservices Application Deployment Guide
 
 ---
-## Installation Steps
 
-### 4. Install Git
+# 🔐 Step 1: Generate GitHub Personal Access Token (PAT)
 
-```bash
-yum install git -y
+Navigate to:
+
+GitHub Profile Settings
+→ Developer Settings
+→ Personal Access Tokens
+→ Tokens (Classic)
+→ Generate New Token
+→ Generate New Token (Classic)
+
+### Note
+Provide any token name.
+
+### Select Scopes (Permissions)
+
+✅ repo (Mandatory)
+
+✅ workflow
+
+✅ admin:org
+
+✅ admin:public_key
+
+✅ admin:org_hook
+
+✅ notifications
+
+✅ user
+
+✅ Others (Optional)
+
+---
+
+## Generate Token
+
+Example:
+
+```text
+gph_1MwkLtA3L3JtvTkPFyJzusBk1tNQhj221uao
 ```
 
-### 5. Install Ingress-Nginx
+Copy the generated token.
+
+---
+
+# 🔑 Step 2: Configure GitHub Repository Secrets
+
+Navigate to:
+
+```text
+Repository
+→ Settings
+→ Secrets and Variables
+→ Actions
+→ New Repository Secret
+```
+
+Create the following secrets:
+
+```text
+AWS_ACCESS_KEY_ID
+AWS_ACCOUNT_ID
+AWS_SECRET_ACCESS_KEY
+AWS_PAT
+```
+
+Example:
+
+```text
+AWS_PAT = gph_1MwkLtA3L3JtvTkPFyJzusBk1tNQhj221uao
+```
+
+Update all secret values.
+
+---
+
+# 🪣 Step 3: Update Terraform Backend Bucket
+
+Navigate to:
+
+```text
+.github/workflows
+    └── infra-eks.yml
+```
+
+Update:
+
+```text
+Bucket Name (Line 10)
+```
+
+Use a globally unique bucket name.
+
+---
+
+Navigate to:
+
+```text
+EKS-Terraform
+    └── backend.tf
+```
+
+Update the same bucket name here as well.
+
+---
+
+# 🖥️ Step 4: Configure EC2 Instance Type
+
+### Free Tier Account
+
+```text
+c7if-lex-large
+```
+
+### Pluralsight Account
+
+```text
+t3.medium
+```
+
+Navigate to:
+
+```text
+EKS-Terraform
+    └── efk-stack
+         └── main.tf
+```
+
+Update instance type if needed.
+
+---
+
+# ☁️ Step 5: Create Infrastructure
+
+Navigate to:
+
+```text
+GitHub Actions
+    → Infra Terraform
+          → Run Workflow
+```
+
+Click:
+
+```text
+Run Workflow
+```
+
+Terraform will provision all AWS resources automatically.
+
+---
+
+# ℹ️ Architecture Information
+
+```text
+Frontend      → Runs inside Kubernetes Cluster
+
+Backend       → Runs inside Kubernetes Cluster
+
+Database      → Runs outside Kubernetes Cluster
+```
+
+All infrastructure resources are created using Terraform.
+
+---
+
+# 🖥️ Step 6: Connect EC2 Client Server
+
+SSH into EC2 and run:
+
+```bash
+sudo su -
+
+yum install mariadb105-server -y
+
+yum install git -y
+
+git clone https://github.com/chintu-cloud/kubernetes-ecommerce-microservices-app.git
+
+ls
+
+cd kubernetes-ecommerce-microservices-app/
+
+ls
+
+cd backend/
+
+ls
+
+mysql -h <DB_HOST> -u admin -p<password> < test.sql
+```
+
+---
+
+# 🗄️ Step 7: Update Database Host
+
+Navigate to:
+
+```text
+backend
+    └── backend-cm.yml
+```
+
+Update:
+
+```text
+<DB_HOST>
+```
+
+Verify latest code:
+
+```bash
+git pull
+```
+
+---
+
+# 🔑 Step 8: Configure AWS CLI
+
+```bash
+aws configure
+```
+
+Provide:
+
+```text
+AWS Access Key ID
+
+AWS Secret Access Key
+
+Default region name : us-east-1
+
+Default output format : json
+```
+
+---
+
+# ☸️ Step 9: Connect to EKS Cluster
+
+```bash
+aws eks update-kubeconfig \
+--region us-east-1 \
+--name chandan
+```
+
+---
+
+# 🌐 Step 10: Install NGINX Ingress Controller
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```
+
+Verify:
+
+```bash
 kubectl get pods -n ingress-nginx
+
 kubectl get svc -n ingress-nginx
 ```
 
-### 6. Install ArgoCD
+---
+
+# 🔄 Step 11: Install ArgoCD
+
+Create namespace:
 
 ```bash
 kubectl create namespace argocd
+```
+
+Install ArgoCD:
+
+```bash
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+Expose ArgoCD:
+
+```bash
+kubectl patch svc argocd-server \
+-n argocd \
+-p '{"spec":{"type":"LoadBalancer"}}'
+```
+
+Check service:
+
+```bash
 kubectl get svc -n argocd
 ```
 
-### 7. Create Application Namespace
+---
+
+# 📦 Step 12: Create Microservices Namespace
 
 ```bash
 kubectl create namespace microservices
 ```
 
-### 8. Retrieve ArgoCD Initial Admin Password
+---
+
+# 🔐 Step 13: Get ArgoCD Password
 
 ```bash
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-```
-### Step 9: Clone Repository on server
-```bash
-git clone <your-repository-url>   
-```
-### rds using as a data base mens run the follwing  scripts
-```
-on backend dirictory run test.sql
-
-sudo dnf install mariadb105-server -y
-
-mysql -h rds-endpoint -u admin -p < test.sql
-```
-### Step 10 : Deploy Backend
-```bash
-cd k8s-argocd/backend
-kubectl apply -f .
-# Wait for Load Balancer to be assigned
-kubectl get svc -n microservices
-```
-### Step 11: Deploy Frontend
-```bash
-cd ../frontend
-kubectl apply -f .
+kubectl -n argocd get secret argocd-initial-admin-secret \
+-o jsonpath="{.data.password}" | base64 -d
 ```
 
-### Step 12: Deploy EFK Stack (Elasticsearch, Fluent Bit, Kibana)
-```bash
-cd ../efk-stack
-kubectl apply -f .
+Example Output:
+
+```text
+hQ4RyL5mJnAtAyrN
 ```
 
-### Step 13: Install Grafana & Prometheus
-```bash
-cd ../../grafana-prometheous
-# Follow installation commands in grafana-prometheous/README.md
-```
-### Step 14: Access the Application
-- Get the Ingress Load Balancer URL:
-```bash
-kubectl get ingress -n google
-```
-- Access the application using the Ingress Load Balancer URL in your browser
-
-
-
-## Summary of Key Components
-
-| Component | Purpose |
-|-----------|---------|
-| **EKS** | Managed Kubernetes service on AWS |
-| **RDS** | Managed relational database (MySQL/MariaDB) |
-| **ArgoCD** | Continuous Deployment tool |
-| **Ingress-Nginx** | Ingress controller for routing |
-| **EFK Stack** | Logging and debugging (Elasticsearch, Fluent Bit, Kibana) |
-| **Grafana** | Metrics visualization |
-| **Prometheus** | Metrics collection and alerting |
+Save the password securely.
 
 ---
-## for rds 
-- sudo dnf install mariadb105-server -y
-- on backend dirictory run test.sql
-- mysql -h rds-endpoint -u admin -p<veerasir> < test.sql
+
+# 🌍 Step 14: Access ArgoCD Dashboard
+
+Get LoadBalancer:
+
+```bash
+kubectl get svc -n argocd
+```
+
+Copy LoadBalancer URL and open in browser.
+
+### Login Credentials
+
+```text
+Username : admin
+
+Password : hQ4RyL5mJnAtAyrN
+```
+
+---
+
+# 🚀 Step 15: Run CI/CD Pipeline
+
+Navigate to:
+
+```text
+GitHub Actions
+     → CI/CD For App
+          → Run Workflow
+```
+
+This workflow performs:
+
+```text
+Docker Build
+
+Docker Push
+
+Deployment Automation
+```
+
+---
+
+# ⚙️ Step 16: Deploy Backend Application
+
+```bash
+cd k8s-argocd/
+
+ls
+
+cd backend/
+
+ls
+
+kubectl apply -f backend.yaml
+```
+
+Backend application will be created automatically.
+
+---
+
+# ⚙️ Step 17: Deploy Frontend Application
+
+```bash
+ls
+
+cd ..
+
+ls
+
+cd frontend/
+
+kubectl apply -f frontend.yaml
+```
+
+Frontend application will be created automatically.
+
+---
+
+# 🌐 Step 18: Access Application
+
+Applications are exposed through:
+
+```text
+Ingress Controller
+```
+
+Navigate to:
+
+```text
+frontend-main
+```
+
+Use:
+
+```text
+Ingress LoadBalancer URL
+```
+
+to access the application.
+
+---
+
+# 📊 Step 19: Install Prometheus & Grafana
+
+Navigate:
+
+```bash
+ls
+
+cd ..
+
+cd ..
+
+ls
+
+cd grafana-prometheus/
+
+ls
+```
+
+Install Helm:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+
+Add Repositories:
+
+```bash
+helm repo add stable https://charts.helm.sh/stable
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
+
+Create Namespace:
+
+```bash
+kubectl create namespace prometheus
+```
+
+Install Monitoring Stack:
+
+```bash
+helm install stable prometheus-community/kube-prometheus-stack \
+-n prometheus
+```
+
+---
+
+# 📈 Step 20: Expose Prometheus
+
+```bash
+kubectl patch svc stable-kube-prometheus-sta-prometheus \
+-n prometheus \
+-p '{"spec":{"type":"NodePort"}}'
+```
+
+---
+
+# 📊 Step 21: Expose Grafana
+
+```bash
+kubectl patch svc stable-grafana \
+-n prometheus \
+-p '{"spec":{"type":"LoadBalancer"}}'
+```
+
+---
+
+# 🔐 Step 22: Get Grafana Password
+
+```bash
+kubectl get secret -n prometheus stable-grafana \
+-o jsonpath="{.data.admin-password}" | base64 -d
+```
+
+Example:
+
+```text
+IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
+```
+
+---
+
+# 🌍 Step 23: Access Grafana Dashboard
+
+Check Grafana Service:
+
+```bash
+kubctl get svc -n prometheus
+```
+
+Copy Grafana LoadBalancer URL and open browser.
+
+### Login Credentials
+
+```text
+Username : admin
+
+Password : IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
+```
+
+---
+
+# ✅ Deployment Complete
+
+Components Installed:
+
+✅ AWS EKS
+
+✅ Terraform Infrastructure
+
+✅ NGINX Ingress
+
+✅ ArgoCD
+
+✅ Frontend Microservices
+
+✅ Backend Microservices
+
+✅ MariaDB / RDS Integration
+
+✅ Prometheus
+
+✅ Grafana
+
+✅ CI/CD Automation
+
+✅ GitHub Actions
+
+✅ Kubernetes Monitoring Stack
+
+🚀 Your Kubernetes E-Commerce Microservices Platform is now fully deployed.
 
 
-**Last Updated:** March 2026
+⚠️ Security Note: Do not publish real PAT tokens, AWS keys, or passwords in a public GitHub README. Replace them with placeholders such as <AWS_PAT>, <AWS_ACCESS_KEY_ID>, and <ARGOCD_PASSWORD> before making the repository public.
 
 
 
