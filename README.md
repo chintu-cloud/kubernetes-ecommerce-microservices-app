@@ -1,4 +1,4 @@
-# kubernetes-veeraops-ecommerce-microservices-app
+# 🚀 Kubernetes E-Commerce Microservices Application Deployment Guide
 
 
 
@@ -21,9 +21,9 @@
 ## Deployment Workflow
 
 
-Below is a stylish README.md format preserving your steps, structure, commands, and flow. I have not removed any deployment steps and organized them into professional GitHub README sections.
 
-# 🚀 Kubernetes E-Commerce Microservices Application Deployment Guide
+
+
 
 ---
 
@@ -40,8 +40,9 @@ GitHub Profile Settings
 
 ### Note
 Provide any token name.
+(give any name)
 
-### Select Scopes (Permissions)
+### Select Scopes (Give Permissions)
 
 ✅ repo (Mandatory)
 
@@ -62,7 +63,7 @@ Provide any token name.
 ---
 
 ## Generate Token
-
+after than generate a new token
 Example:
 
 ```text
@@ -97,7 +98,10 @@ AWS_PAT
 Example:
 
 ```text
-AWS_PAT = gph_1MwkLtA3L3JtvTkPFyJzusBk1tNQhj221uao
+AWS_ACCESS_KEY_ID      :
+AWS_ACCOUNT_ID         :
+AWS_SECRET_ACCESS_KEY  :
+AWS_PAT                : gph_1MwkLtA3L3JtvTkPFyJzusBk1tNQhj221uao
 ```
 
 Update all secret values.
@@ -105,6 +109,9 @@ Update all secret values.
 ---
 
 # 🪣 Step 3: Update Terraform Backend Bucket
+
+Then goto YML file (.github/workflows)
+
 
 Navigate to:
 
@@ -124,10 +131,11 @@ Use a globally unique bucket name.
 ---
 
 Navigate to:
-
+After update bucket name Goto EKS-Terraform directry inside backend.tf inside same bucket name give
 ```text
 EKS-Terraform
     └── backend.tf
+            └── same bucket name update
 ```
 
 Update the same bucket name here as well.
@@ -149,8 +157,9 @@ t3.medium
 ```
 
 Navigate to:
-
+ we can update instance type
 ```text
+Goto
 EKS-Terraform
     └── efk-stack
          └── main.tf
@@ -229,6 +238,7 @@ Navigate to:
 ```text
 backend
     └── backend-cm.yml
+              └── update <DB HOST>
 ```
 
 Update:
@@ -236,7 +246,7 @@ Update:
 ```text
 <DB_HOST>
 ```
-
+After that we can run <git pull> for checking purpose
 Verify latest code:
 
 ```bash
@@ -268,9 +278,7 @@ Default output format : json
 # ☸️ Step 9: Connect to EKS Cluster
 
 ```bash
-aws eks update-kubeconfig \
---region us-east-1 \
---name chandan
+aws eks update-kubeconfig --region us-east-1 --name chandan
 ```
 
 ---
@@ -279,43 +287,26 @@ aws eks update-kubeconfig \
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
-```
-
-Verify:
-
-```bash
 kubectl get pods -n ingress-nginx
-
 kubectl get svc -n ingress-nginx
 ```
+
+
+
 
 ---
 
 # 🔄 Step 11: Install ArgoCD
 
 Create namespace:
-
-```bash
-kubectl create namespace argocd
-```
-
 Install ArgoCD:
-
-```bash
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
-
 Expose ArgoCD:
-
-```bash
-kubectl patch svc argocd-server \
--n argocd \
--p '{"spec":{"type":"LoadBalancer"}}'
-```
-
 Check service:
 
 ```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'
 kubectl get svc -n argocd
 ```
 
@@ -330,10 +321,9 @@ kubectl create namespace microservices
 ---
 
 # 🔐 Step 13: Get ArgoCD Password
-
+after this command run automatic password given / copy the password some where
 ```bash
-kubectl -n argocd get secret argocd-initial-admin-secret \
--o jsonpath="{.data.password}" | base64 -d
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
 Example Output:
@@ -353,10 +343,12 @@ Get LoadBalancer:
 ```bash
 kubectl get svc -n argocd
 ```
-
+After run this command many options seen
+Then,
 Copy LoadBalancer URL and open in browser.
 
 ### Login Credentials
+we can ArgoCD Dashboard give username & password -
 
 ```text
 Username : admin
@@ -427,6 +419,8 @@ Frontend application will be created automatically.
 # 🌐 Step 18: Access Application
 
 Applications are exposed through:
+Then How access this application --> Access through Ingress
+
 
 ```text
 Ingress Controller
@@ -473,25 +467,19 @@ curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 |
 ```
 
 Add Repositories:
-
-```bash
-helm repo add stable https://charts.helm.sh/stable
-
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-```
-
 Create Namespace:
-
-```bash
-kubectl create namespace prometheus
-```
-
 Install Monitoring Stack:
 
 ```bash
-helm install stable prometheus-community/kube-prometheus-stack \
--n prometheus
+helm repo add stable https://charts.helm.sh/stable
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+kubectl create namespace prometheus
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus
 ```
+
+
+
+
 
 ---
 
@@ -508,15 +496,13 @@ kubectl patch svc stable-kube-prometheus-sta-prometheus \
 # 📊 Step 21: Expose Grafana
 
 ```bash
-kubectl patch svc stable-grafana \
--n prometheus \
--p '{"spec":{"type":"LoadBalancer"}}'
+kubectl patch svc stable-grafana -n prometheus -p '{"spec":{"type":"LoadBalancer"}}'
 ```
 
 ---
 
 # 🔐 Step 22: Get Grafana Password
-
+After that just take the secrete password & then we can access
 ```bash
 kubectl get secret -n prometheus stable-grafana \
 -o jsonpath="{.data.admin-password}" | base64 -d
@@ -544,7 +530,6 @@ Copy Grafana LoadBalancer URL and open browser.
 
 ```text
 Username : admin
-
 Password : IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
 ```
 
