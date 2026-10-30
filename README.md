@@ -46,19 +46,12 @@ Provide any token name.
 ### Select Scopes (Give Permissions)
 
 ✅ repo (Mandatory)
-
 ✅ workflow
-
 ✅ admin:org
-
 ✅ admin:public_key
-
 ✅ admin:org_hook
-
 ✅ notifications
-
 ✅ user
-
 ✅ Others (Optional)
 
 ---
