@@ -27,7 +27,7 @@
 
 ---
 
-# 🔐 Step 1: Generate GitHub Personal Access Token (PAT)
+## 🔐 Step 1: Generate GitHub Personal Access Token (PAT)
 
 Navigate to:
 
@@ -75,7 +75,7 @@ Copy the generated token.
 
 ---
 
-# 🔑 Step 2: Configure GitHub Repository Secrets
+## 🔑 Step 2: Configure GitHub Repository Secrets
 
 Navigate to:
 
@@ -109,7 +109,7 @@ Update all secret values.
 
 ---
 
-# 🪣 Step 3: Update Terraform Backend Bucket
+## 🪣 Step 3: Update Terraform Backend Bucket
 
 Then goto YML file (.github/workflows)
 
@@ -143,7 +143,7 @@ Update the same bucket name here as well.
 
 ---
 
-# 🖥️ Step 4: Configure EC2 Instance Type
+## 🖥️ Step 4: Configure EC2 Instance Type
 
 ### Free Tier Account
 
@@ -170,7 +170,7 @@ Update instance type if needed.
 
 ---
 
-# ☁️ Step 5: Create Infrastructure
+## ☁️ Step 5: Create Infrastructure
 
 Navigate to:
 
@@ -191,7 +191,7 @@ Terraform will provision all AWS resources automatically.
 
 ---
 
-# ℹ️ Architecture Information
+## ℹ️ Architecture Information
 
 ```text
 Frontend      → Runs inside Kubernetes Cluster
@@ -205,7 +205,7 @@ All infrastructure resources are created using Terraform.
 
 ---
 
-# 🖥️ Step 6: Connect EC2 Client Server
+## 🖥️ Step 6: Connect EC2 Client Server
 
 SSH into EC2 and run:
 
@@ -233,7 +233,7 @@ mysql -h <DB_HOST> -u admin -p<password> < test.sql
 
 ---
 
-# 🗄️ Step 7: Update Database Host
+## 🗄️ Step 7: Update Database Host
 
 Navigate to:
 
@@ -257,7 +257,7 @@ git pull
 
 ---
 
-# 🔑 Step 8: Configure AWS CLI
+## 🔑 Step 8: Configure AWS CLI
 
 ```bash
 aws configure
@@ -277,7 +277,7 @@ Default output format : json
 
 ---
 
-# ☸️ Step 9: Connect to EKS Cluster
+## ☸️ Step 9: Connect to EKS Cluster
 
 ```bash
 aws eks update-kubeconfig --region us-east-1 --name chandan
@@ -285,7 +285,7 @@ aws eks update-kubeconfig --region us-east-1 --name chandan
 
 ---
 
-# 🌐 Step 10: Install NGINX Ingress Controller
+## 🌐 Step 10: Install NGINX Ingress Controller
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
@@ -298,7 +298,7 @@ kubectl get svc -n ingress-nginx
 
 ---
 
-# 🔄 Step 11: Install ArgoCD
+## 🔄 Step 11: Install ArgoCD
 
 Create namespace:
 Install ArgoCD:
@@ -314,7 +314,7 @@ kubectl get svc -n argocd
 
 ---
 
-# 📦 Step 12: Create Microservices Namespace
+## 📦 Step 12: Create Microservices Namespace
 
 ```bash
 kubectl create namespace microservices
@@ -322,7 +322,7 @@ kubectl create namespace microservices
 
 ---
 
-# 🔐 Step 13: Get ArgoCD Password
+## 🔐 Step 13: Get ArgoCD Password
 after this command run automatic password given / copy the password some where
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
@@ -339,7 +339,7 @@ Save the password securely.
 
 ---
 
-# 🌍 Step 14: Access ArgoCD Dashboard
+## 🌍 Step 14: Access ArgoCD Dashboard
 
 Get LoadBalancer:
 
@@ -363,7 +363,7 @@ Password : hQ4RyL5mJnAtAyrN
 ---
 <img width="1525" height="753" alt="Screenshot 2026-10-24 104623" src="https://github.com/user-attachments/assets/948f65a2-86df-4842-a847-577a23503960" />
 
-# 🚀 Step 15: Run CI/CD Pipeline
+## 🚀 Step 15: Run CI/CD Pipeline
 
 Navigate to:
 
@@ -385,7 +385,7 @@ Deployment Automation
 
 ---
 
-# ⚙️ Step 16: Deploy Backend Application
+## ⚙️ Step 16: Deploy Backend Application
 
 ```bash
 cd k8s-argocd/
@@ -404,7 +404,7 @@ Backend application will be created automatically.
 ---
 <img width="893" height="605" alt="Screenshot 2026-10-24 110808" src="https://github.com/user-attachments/assets/73af6633-fd18-4d45-a161-51776be3719c" />
 
-# ⚙️ Step 17: Deploy Frontend Application
+## ⚙️ Step 17: Deploy Frontend Application
 
 ```bash
 ls
@@ -423,7 +423,7 @@ Frontend application will be created automatically.
 ---
 <img width="1505" height="606" alt="Screenshot 2026-10-24 111059" src="https://github.com/user-attachments/assets/6c7a39e3-8e62-4e48-aba7-351fdf7adb06" />
 
-# 🌐 Step 18: Access Application
+## 🌐 Step 18: Access Application
 
 Applications are exposed through:
 Then How access this application --> Access through Ingress
@@ -450,7 +450,7 @@ to access the application.
 ---
 <img width="1517" height="658" alt="Screenshot 2026-10-24 112151" src="https://github.com/user-attachments/assets/13c912da-fae7-4d4b-8341-6a9b22b7120b" />
 
-# 📊 Step 19: Install Prometheus & Grafana
+## 📊 Step 19: Install Prometheus & Grafana
 
 Navigate:
 
@@ -491,7 +491,7 @@ helm install stable prometheus-community/kube-prometheus-stack -n prometheus
 
 ---
 
-# 📈 Step 20: Expose Prometheus
+## 📈 Step 20: Expose Prometheus
 
 ```bash
 kubectl patch svc stable-kube-prometheus-sta-prometheus \
@@ -501,7 +501,7 @@ kubectl patch svc stable-kube-prometheus-sta-prometheus \
 
 ---
 
-# 📊 Step 21: Expose Grafana
+## 📊 Step 21: Expose Grafana
 
 ```bash
 kubectl patch svc stable-grafana -n prometheus -p '{"spec":{"type":"LoadBalancer"}}'
@@ -509,7 +509,7 @@ kubectl patch svc stable-grafana -n prometheus -p '{"spec":{"type":"LoadBalancer
 
 ---
 
-# 🔐 Step 22: Get Grafana Password
+## 🔐 Step 22: Get Grafana Password
 After that just take the secrete password & then we can access
 ```bash
 kubectl get secret -n prometheus stable-grafana \
@@ -525,7 +525,7 @@ IGNhb6jK5J07tuLdEjslvGjuJPmnFraTbEHlw
 ---
 <img width="807" height="52" alt="Screenshot 2026-10-24 114106" src="https://github.com/user-attachments/assets/6e7342d8-44aa-4f44-bf2f-83aba437cb4b" />
 
-# 🌍 Step 23: Access Grafana Dashboard
+## 🌍 Step 23: Access Grafana Dashboard
 
 Check Grafana Service:
 
